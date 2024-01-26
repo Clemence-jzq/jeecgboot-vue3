@@ -23,7 +23,7 @@ export const imgArr = ref([
     },
     {
         url: '/src/assets/images/banner5.png',
-        position: [0, 55],
+        position: [120, 55],
         speed: 100
     },
     {
