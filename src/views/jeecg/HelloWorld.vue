@@ -2,6 +2,15 @@
 import {imgArr} from './banner';
 import {onMounted, ref} from "vue";
 import {throttle} from "lodash-es";
+import QuickNav from "./QuickNav.vue";
+
+const loading = ref(true);
+
+setTimeout(() => {
+  loading.value = false;
+}, 500);
+
+//==========================================
 
 // 鼠标进入banner的位置
 let prevX = 0;
@@ -41,7 +50,6 @@ function mouseMove(e) {
   throttledMouseMove();
 }
 
-
 function mouseLeave(e) {
   imgArr.value.forEach((item, index) => {
     // 复原图片位置
@@ -59,6 +67,7 @@ function mouseLeave(e) {
 </script>
 
 <template>
+  <!--  banner-->
   <div class="animated-banner" @mouseenter="mouseEnter" @mouseleave="mouseLeave"
        @mousemove="mouseMove">
     <div v-for="item in imgArr" class="layer">
@@ -71,6 +80,19 @@ function mouseLeave(e) {
       <video autoplay loop playsinline="" preload="auto"
              src="@/assets/images/banner.webm"
              style="object-fit: cover; transform: translate(0px, 0px); height: 100%"></video>
+    </div>
+  </div>
+
+  <!--  快捷方式-->
+  <div class="p-4">
+    <div class="left">
+      <div class="lg:w-3/10 w-full enter-y">
+        <QuickNav :loading="loading" class="enter-y" />
+      </div>
+    </div>
+
+    <div class="right">
+
     </div>
   </div>
 </template>
