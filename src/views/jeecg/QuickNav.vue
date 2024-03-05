@@ -10,18 +10,28 @@
         </router-link>
       </CardGrid>
     </template>
+    <p class="hidden">{{ dataFromAddNav }}</p>
   </Card>
 </template>
 
 <script lang="ts" setup>
 import {Card} from 'ant-design-vue';
-import {navItems} from './data';
+import {NavItem, navItems} from './data';
 import {Icon} from '/@/components/Icon';
+import {toRefs, watch} from "vue";
 
 const CardGrid = Card.Grid;
+const props = defineProps({
+  dataFromAddNav: {
+    type: Object,
+    default: {}
+  },
+});
 
-// 点击快捷方式打开网页
-function click() {
+const {dataFromAddNav} = toRefs(props);
+watch(dataFromAddNav, (newValue: any, oldValue: any) => {
+  const newItem: NavItem = {...dataFromAddNav.value};
+  navItems.push(newItem);
+});
 
-}
 </script>

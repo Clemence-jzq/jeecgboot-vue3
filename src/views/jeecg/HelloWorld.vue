@@ -3,9 +3,9 @@ import {imgArr} from './banner';
 import {onMounted, ref} from "vue";
 import {throttle} from "lodash-es";
 import QuickNav from "./QuickNav.vue";
+import AddNav from "@/views/jeecg/AddNav.vue";
 
 const loading = ref(true);
-
 setTimeout(() => {
   loading.value = false;
 }, 500);
@@ -64,6 +64,13 @@ function mouseLeave(e) {
     }
   });
 }
+
+// =============================================
+// 兄弟组件之间传递数据
+const dataFromAddNav = ref();
+function transferData(data) {
+  dataFromAddNav.value = data;
+}
 </script>
 
 <template>
@@ -84,15 +91,13 @@ function mouseLeave(e) {
   </div>
 
   <!--  快捷方式-->
-  <div class="p-4">
-    <div class="left">
-      <div class="lg:w-3/10 w-full enter-y">
-        <QuickNav :loading="loading" class="enter-y" />
-      </div>
+  <div class="p-4 lg:flex">
+    <div class="lg:w-4/10 w-full !mr-4 enter-y">
+      <QuickNav :loading="loading" :dataFromAddNav="dataFromAddNav" class="enter-y"/>
     </div>
 
-    <div class="right">
-
+    <div class="lg:w-6/10 w-full enter-y">
+      <AddNav :loading="loading" class="enter-y" @send-data="transferData"/>
     </div>
   </div>
 </template>
